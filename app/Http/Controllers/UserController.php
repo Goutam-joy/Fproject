@@ -16,10 +16,11 @@ class UserController extends Controller
     {
         if ($request->hasFile('image')); {
             User::uploadAvater($request->image);
-
-            }
-        
-        return redirect()->back();// code...
+            // $request->session()->flash('message', 'Image Uploaded');
+            return redirect()->back()->with('message', 'Image Uploaded');
+             }
+        // $request->session()->flash('error', 'Image Not Uploaded');     
+        return redirect()->back()->with('error', 'Image Not Uploaded');// code...
     }
 
     
