@@ -44,6 +44,22 @@ class User extends Authenticatable
     ];
 
 
+    public static function uploadAvater($image)
+    {
+        $filename = $image->getClientOriginalName();
+        (new self())->deleteOldImage();
+        $image->storeas('images', $filename, 'public');
+        auth()->user()->update(['avater' =>$filename]);// code...
+    }
+
+    protected function deleteOldImage()
+    {
+        if ($this->avater){
+                Storage::delete('/public/images/' .$this->avater);
+            } // code...
+    }
+
+
     // public function setPasswordAttribute($password)
     // {
     //     $this->attributes['password'] = bcrypt($password);// code

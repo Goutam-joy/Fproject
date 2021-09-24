@@ -15,16 +15,14 @@ class UserController extends Controller
     public function uploadAvater(Request $request)
     {
         if ($request->hasFile('image')); {
-            $filename = ($request->image->getClientOriginalName());
-            if (auth()->user()->avater){
-                Storage::delete('/public/images/' .auth()->user()->avater);
-            }
-            $request->image->storeas('images', $filename, 'public');
-            auth()->user()->update(['avater' =>$filename]);
+            User::uploadAvater($request->image);
+
             }
         
         return redirect()->back();// code...
     }
+
+    
 
     public function index()
 
